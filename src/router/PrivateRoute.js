@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { isLoggedIn } from 'services/auth.service';
 
 export default function PrivateRoute({ component: Component, ...rest }) {
@@ -22,18 +22,9 @@ export default function PrivateRoute({ component: Component, ...rest }) {
 
   return loading ? (
     <div style={{ height: '100vh' }}>loading…</div>
+  ) : isLogged ? (
+    <Component {...rest} />
   ) : (
-    <Route
-      {...rest}
-      render={(props) =>
-        isLogged ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: '/login', state: { from: props.location } }}
-          />
-        )
-      }
-    />
+    <Navigate to="/login" replace state={{ from: rest.location }} />
   );
 }

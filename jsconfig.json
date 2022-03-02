@@ -14,7 +14,8 @@
       "errors/*": ["./errors/*"],
       "mocks/*": ["./mocks/*"],
       "context/*": ["./context/*"],
-      "config/*": ["./config/*"]
+      "config/*": ["./config/*"],
+      "redux/*": ["./redux/*"]
     }
   },
   "include": ["src"]

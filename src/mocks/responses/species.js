@@ -1,4 +1,4 @@
-export const species = [
+export const getAll = [
   {
     name: 'Human',
     classification: 'mammal',

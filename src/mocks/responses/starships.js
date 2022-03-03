@@ -1,4 +1,4 @@
-export const starships = [
+export const getAll = [
   {
     name: 'CR90 corvette',
     model: 'CR90 corvette',

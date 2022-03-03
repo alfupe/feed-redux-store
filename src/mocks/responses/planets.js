@@ -1,4 +1,4 @@
-export const planets = [
+export const getAll = [
   {
     name: 'Tatooine',
     rotation_period: '23',

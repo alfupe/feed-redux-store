@@ -1,4 +1,4 @@
-import { people } from 'mocks/responses/people-by-id';
+import { people } from 'modules/people-by-id';
 import { vehicles } from 'mocks/responses/vehicles';
 import { species } from 'mocks/responses/species';
 import { planets } from 'mocks/responses/planets';

@@ -5,6 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from 'redux/store';
+import initMockServiceWorker from 'config/initMockServiceWorker';
+import initAxios from 'config/axios.config';
+
+initMockServiceWorker();
+initAxios();
 
 ReactDOM.render(
   <Provider store={store}>

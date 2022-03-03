@@ -1,4 +1,4 @@
-export const vehicles = [
+export const getAll = [
   {
     name: 'Sand Crawler',
     model: 'Digger Crawler',

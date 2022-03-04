@@ -13,10 +13,9 @@ export function FeedStoreProvider({ children }) {
   const { species: storeSpecies, set: setSpecies } = useSpecies();
   const { starships: storeStarships, set: setStarships } = useStarships();
   const { vehicles: storeVehicles, set: setVehicles } = useVehicles();
-  console.log(films);
 
   useEffect(() => {
-    setIfEmpty();
+    setTimeout(setIfEmpty, 100);
   }, [setIfEmpty]);
 
   return (

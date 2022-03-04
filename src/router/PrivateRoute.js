@@ -25,9 +25,7 @@ export default function PrivateRoute({ component: Component, ...rest }) {
   return loading ? (
     <div style={{ height: '100vh' }}>loading…</div>
   ) : isLogged ? (
-    <FeedStoreProvider>
-      <Component {...rest} />
-    </FeedStoreProvider>
+    <Component {...rest} />
   ) : (
     <Navigate to="/login" replace state={{ from: rest.location }} />
   );

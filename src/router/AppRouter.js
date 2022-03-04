@@ -7,6 +7,7 @@ import {
 import PrivateRoute from 'router/PrivateRoute';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import PrivatePage from 'pages/PrivatePage/PrivatePage';
+import Private2Page from 'pages/Private2Page/Private2Page';
 
 export default function AppRouter() {
   return (
@@ -19,6 +20,11 @@ export default function AppRouter() {
           path="/private"
           exact
           element={<PrivateRoute component={PrivatePage} />}
+        />
+        <Route
+          path="/private2"
+          exact
+          element={<PrivateRoute component={Private2Page} />}
         />
       </Routes>
     </Router>

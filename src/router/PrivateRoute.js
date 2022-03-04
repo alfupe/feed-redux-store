@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { isLoggedIn } from 'services/auth.service';
+import { FeedStoreProvider } from 'redux/FeedStoreProvider';
 
 export default function PrivateRoute({ component: Component, ...rest }) {
   const [loading, setLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
+    //debugger;
     (async () => {
       setLoading(true);
       try {
@@ -23,7 +25,9 @@ export default function PrivateRoute({ component: Component, ...rest }) {
   return loading ? (
     <div style={{ height: '100vh' }}>loading…</div>
   ) : isLogged ? (
-    <Component {...rest} />
+    <FeedStoreProvider>
+      <Component {...rest} />
+    </FeedStoreProvider>
   ) : (
     <Navigate to="/login" replace state={{ from: rest.location }} />
   );

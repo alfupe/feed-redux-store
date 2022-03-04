@@ -8,7 +8,6 @@ import PrivateRoute from 'router/PrivateRoute';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import PrivatePage from 'pages/PrivatePage/PrivatePage';
 import Private2Page from 'pages/Private2Page/Private2Page';
-import { FeedStoreProvider } from 'redux/FeedStoreProvider';
 
 export default function AppRouter() {
   return (
@@ -20,20 +19,12 @@ export default function AppRouter() {
         <Route
           path="/private"
           exact
-          element={
-            <FeedStoreProvider>
-              <PrivateRoute component={PrivatePage} />
-            </FeedStoreProvider>
-          }
+          element={<PrivateRoute component={PrivatePage} />}
         />
         <Route
           path="/private2"
           exact
-          element={
-            <FeedStoreProvider>
-              <PrivateRoute component={Private2Page} />
-            </FeedStoreProvider>
-          }
+          element={<PrivateRoute component={Private2Page} />}
         />
       </Routes>
     </Router>

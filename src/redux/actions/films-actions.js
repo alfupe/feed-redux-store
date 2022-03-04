@@ -6,7 +6,6 @@ export const SET_EMPTY_FILMS = 'SET_EMPTY_FILMS';
 
 export const set = (value) => ({ type: SET_FILMS, payload: value });
 export const unset = () => ({ type: UNSET_FILMS });
-
 export const setIfEmpty = () => async (dispatch, getState) => {
   console.log('should I fetch❓');
   const { films } = getState();

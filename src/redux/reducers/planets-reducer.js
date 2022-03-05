@@ -1,6 +1,6 @@
 import {
-  SET_EMPTY_PLANETS,
   SET_PLANETS,
+  SET_PLANETS_IF_EMPTY,
   UNSET_PLANETS,
 } from 'redux/actions/planets-actions';
 
@@ -15,7 +15,7 @@ export const planetsReducer = (state = initialState, action) => {
     return initialState;
   }
 
-  if (action.type === SET_EMPTY_PLANETS) {
+  if (action.type === SET_PLANETS_IF_EMPTY) {
     return action.payload;
   }
 

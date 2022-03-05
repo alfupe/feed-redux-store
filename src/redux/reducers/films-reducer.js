@@ -1,6 +1,6 @@
 import {
-  SET_EMPTY_FILMS,
   SET_FILMS,
+  SET_FILMS_IF_EMPTY,
   UNSET_FILMS,
 } from 'redux/actions/films-actions';
 
@@ -15,7 +15,7 @@ export const filmsReducer = (state = initialState, action) => {
     return initialState;
   }
 
-  if (action.type === SET_EMPTY_FILMS) {
+  if (action.type === SET_FILMS_IF_EMPTY) {
     return action.payload;
   }
 

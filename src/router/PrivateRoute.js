@@ -8,7 +8,6 @@ export default function PrivateRoute({ component: Component, ...rest }) {
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
-    //debugger;
     (async () => {
       setLoading(true);
       try {

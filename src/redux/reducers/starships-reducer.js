@@ -1,7 +1,7 @@
 import {
   SET_STARSHIPS,
-  SET_EMPTY_STARSHIPS,
   UNSET_STARSHIPS,
+  SET_STARSHIPS_IF_EMPTY,
 } from 'redux/actions/starships-actions';
 
 export const initialState = [];
@@ -15,7 +15,7 @@ export const starshipsReducer = (state = initialState, action) => {
     return initialState;
   }
 
-  if (action.type === SET_EMPTY_STARSHIPS) {
+  if (action.type === SET_STARSHIPS_IF_EMPTY) {
     return action.payload;
   }
 

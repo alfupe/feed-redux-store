@@ -1,6 +1,6 @@
 import {
-  SET_EMPTY_SPECIES,
   SET_SPECIES,
+  SET_SPECIES_IF_EMPTY,
   UNSET_SPECIES,
 } from 'redux/actions/species-actions';
 
@@ -15,7 +15,7 @@ export const speciesReducer = (state = initialState, action) => {
     return initialState;
   }
 
-  if (action.type === SET_EMPTY_SPECIES) {
+  if (action.type === SET_SPECIES_IF_EMPTY) {
     return action.payload;
   }
 

@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
 import { useFilms } from 'hooks/use-films';
 import { usePlanets } from 'hooks/use-planets';
 import { useSpecies } from 'hooks/use-species';
 import { useStarships } from 'hooks/use-starships';
 import { useVehicles } from 'hooks/use-vehicles';
+import PageContainer from 'components/PageContainer/PageContainer';
 
 export default function Private2Page() {
   const { films } = useFilms();
@@ -13,12 +13,7 @@ export default function Private2Page() {
   const { vehicles } = useVehicles();
 
   return (
-    <article>
-      <header>
-        <h1>another private page</h1>
-        <Link to="/private">Private page</Link>
-        <hr />
-      </header>
+    <PageContainer title="Private page 1">
       <pre>
         {JSON.stringify(
           { films, planets, species, starships, vehicles },
@@ -26,6 +21,6 @@ export default function Private2Page() {
           2,
         )}
       </pre>
-    </article>
+    </PageContainer>
   );
 }

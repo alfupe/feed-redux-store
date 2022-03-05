@@ -21,7 +21,7 @@ export default function LoginForm() {
         setLoading(true);
         await login(username, password);
         setLoading(false);
-        navigate('/private');
+        navigate('/private1');
       } catch (error) {
         console.error(error);
         setLoading(false);

@@ -1,42 +1,25 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFilms } from 'hooks/use-films';
-import { useVehicles } from 'hooks/use-vehicles';
-import { useStarships } from 'hooks/use-starships';
-import { useSpecies } from 'hooks/use-species';
-import { usePlanets } from 'hooks/use-planets';
+import { useFeedStore } from 'hooks/use-feed-store';
 
 export default function LogoutAction() {
   const navigate = useNavigate();
-  const { unset: unsetFilms } = useFilms();
-  const { unset: unsetPlanets } = usePlanets();
-  const { unset: unsetSpecies } = useSpecies();
-  const { unset: unsetStarships } = useStarships();
-  const { unset: unsetVehicles } = useVehicles();
+  const { emptyStore } = useFeedStore();
 
   const handleLogout = useCallback(
     (event) => {
+      event.preventDefault();
       localStorage.removeItem('isLoggedIn');
-      unsetFilms();
-      unsetPlanets();
-      unsetSpecies();
-      unsetStarships();
-      unsetVehicles();
+      emptyStore();
       navigate('/login');
     },
-    [
-      navigate,
-      unsetFilms,
-      unsetPlanets,
-      unsetSpecies,
-      unsetStarships,
-      unsetVehicles,
-    ],
+    [navigate, emptyStore],
   );
 
   return (
-    <button type="button" onClick={handleLogout}>
+    /* eslint jsx-a11y/anchor-is-valid: "off" */
+    <a href="#" onClick={handleLogout}>
       Logout
-    </button>
+    </a>
   );
 }

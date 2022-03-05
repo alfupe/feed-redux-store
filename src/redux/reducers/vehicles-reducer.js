@@ -1,7 +1,7 @@
 import {
   SET_VEHICLES,
-  SET_EMPTY_VEHICLES,
   UNSET_VEHICLES,
+  SET_VEHICLES_IF_EMPTY,
 } from 'redux/actions/vehicles-actions';
 
 export const initialState = [];
@@ -15,7 +15,7 @@ export const vehiclesReducer = (state = initialState, action) => {
     return initialState;
   }
 
-  if (action.type === SET_EMPTY_VEHICLES) {
+  if (action.type === SET_VEHICLES_IF_EMPTY) {
     return action.payload;
   }
 

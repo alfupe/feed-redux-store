@@ -1,0 +1,12 @@
+.page-container__nav-menu {
+  display: flex;
+  place-content: center;
+  gap: 20px;
+}
+
+.page-container__nav-item--is-active {
+  pointer-events: none;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+}

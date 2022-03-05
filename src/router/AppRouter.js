@@ -17,7 +17,7 @@ export default function AppRouter() {
         <Route path="/" exact element={<Navigate to="/login" />} />
         <Route path="/login" exact element={<LoginPage />} />
         <Route
-          path="/private"
+          path="/private1"
           exact
           element={<PrivateRoute component={PrivatePage} />}
         />

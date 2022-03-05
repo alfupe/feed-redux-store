@@ -13,7 +13,7 @@ export default function PrivatePage() {
   const { vehicles } = useVehicles();
 
   return (
-    <PageContainer title="Private Page 1">
+    <PageContainer title="Private page 1">
       <pre>
         {JSON.stringify(
           { films, planets, species, starships, vehicles },

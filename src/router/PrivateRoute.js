@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { isLoggedIn } from 'services/auth.service';
-import { FeedStoreProvider } from 'redux/FeedStoreProvider';
+import { FeedStoreProvider } from 'context/FeedStoreProvider';
 
 export default function PrivateRoute({ component: Component, ...rest }) {
   const [loading, setLoading] = useState(true);

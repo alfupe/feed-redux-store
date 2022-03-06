@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
-import {
-  setFilms,
-  unsetFilms,
-  setFilmsIfEmpty,
-} from 'redux/actions/films-actions';
 import { selectFilms } from 'redux/selectors';
 import { useActions } from 'hooks/use-actions';
+import {
+  setFilms,
+  setFilmsIfEmpty,
+  unsetFilms,
+} from 'redux/reducers/films-reducer';
 
 export function useFilms() {
   const films = useSelector(selectFilms);

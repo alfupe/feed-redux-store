@@ -3,7 +3,7 @@ import {
   setSpecies,
   unsetSpecies,
   setSpeciesIfEmpty,
-} from 'redux/actions/species-actions';
+} from 'redux/reducers/species-reducer';
 import { selectSpecies } from 'redux/selectors';
 import { useActions } from 'hooks/use-actions';
 

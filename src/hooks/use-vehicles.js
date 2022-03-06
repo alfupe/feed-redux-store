@@ -3,7 +3,7 @@ import {
   setVehicles,
   unsetVehicles,
   setVehiclesIfEmpty,
-} from 'redux/actions/vehicles-actions';
+} from 'redux/reducers/vehicles-reducer';
 import { selectVehicles } from 'redux/selectors';
 import { useActions } from 'hooks/use-actions';
 

@@ -1,23 +1,40 @@
-import {
-  SET_SPECIES,
-  SET_SPECIES_IF_EMPTY,
-  UNSET_SPECIES,
-} from 'redux/actions/species-actions';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getAll as getAllSpecies } from 'services/species.service';
 
-export const initialState = [];
+export const setSpeciesIfEmpty = createAsyncThunk(
+  'species/setSpeciesIfEmpty',
+  async (payload, { getState }) => {
+    const { data } = await getAllSpecies();
+    return data;
+  },
+  {
+    condition(payload, { getState }) {
+      const { species } = getState();
+      return !species?.length;
+    },
+  },
+);
 
-export const speciesReducer = (state = initialState, action) => {
-  if (action.type === SET_SPECIES) {
-    return action.payload;
-  }
+const initialState = [];
 
-  if (action.type === UNSET_SPECIES) {
-    return initialState;
-  }
+const speciesSlice = createSlice({
+  name: 'species',
+  initialState,
+  reducers: {
+    setSpecies(state, action) {
+      return action.payload;
+    },
+    unsetSpecies(state, action) {
+      return initialState;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(setSpeciesIfEmpty.fulfilled, (state, action) => {
+      return action.payload;
+    });
+  },
+});
 
-  if (action.type === SET_SPECIES_IF_EMPTY) {
-    return action.payload;
-  }
+export const { setSpecies, unsetSpecies } = speciesSlice.actions;
 
-  return state;
-};
+export default speciesSlice.reducer;

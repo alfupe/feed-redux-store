@@ -1,16 +1,22 @@
-import { setFilmsIfEmpty, unsetFilms } from 'redux/actions/films-actions';
-import { setPlanetsIfEmpty, unsetPlanets } from 'redux/actions/planets-actions';
-import { setSpeciesIfEmpty, unsetSpecies } from 'redux/actions/species-actions';
+import {
+  setPlanetsIfEmpty,
+  unsetPlanets,
+} from 'redux/reducers/planets-reducer';
+import {
+  setSpeciesIfEmpty,
+  unsetSpecies,
+} from 'redux/reducers/species-reducer';
 import {
   setVehiclesIfEmpty,
   unsetVehicles,
-} from 'redux/actions/vehicles-actions';
+} from 'redux/reducers/vehicles-reducer';
 import {
   setStarshipsIfEmpty,
   unsetStarships,
-} from 'redux/actions/starships-actions';
+} from 'redux/reducers/starships-reducer';
+import { setFilmsIfEmpty, unsetFilms } from 'redux/reducers/films-reducer';
 
-export const feedStore = () => async (dispatch, getState) => {
+export const feedStore = () => (dispatch, getState) => {
   setTimeout(() => {
     dispatch(setFilmsIfEmpty());
     dispatch(setPlanetsIfEmpty());

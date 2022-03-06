@@ -1,23 +1,40 @@
-import {
-  SET_VEHICLES,
-  UNSET_VEHICLES,
-  SET_VEHICLES_IF_EMPTY,
-} from 'redux/actions/vehicles-actions';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getAll as getAllVehicles } from 'services/vehicles.service';
 
-export const initialState = [];
+export const setVehiclesIfEmpty = createAsyncThunk(
+  'vehicles/setVehiclesIfEmpty',
+  async (payload, { getState }) => {
+    const { data } = await getAllVehicles();
+    return data;
+  },
+  {
+    condition(payload, { getState }) {
+      const { vehicles } = getState();
+      return !vehicles?.length;
+    },
+  },
+);
 
-export const vehiclesReducer = (state = initialState, action) => {
-  if (action.type === SET_VEHICLES) {
-    return action.payload;
-  }
+const initialState = [];
 
-  if (action.type === UNSET_VEHICLES) {
-    return initialState;
-  }
+const vehiclesSlice = createSlice({
+  name: 'vehicles',
+  initialState,
+  reducers: {
+    setVehicles(state, action) {
+      return action.payload;
+    },
+    unsetVehicles(state, action) {
+      return initialState;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(setVehiclesIfEmpty.fulfilled, (state, action) => {
+      return action.payload;
+    });
+  },
+});
 
-  if (action.type === SET_VEHICLES_IF_EMPTY) {
-    return action.payload;
-  }
+export const { setVehicles, unsetVehicles } = vehiclesSlice.actions;
 
-  return state;
-};
+export default vehiclesSlice.reducer;

@@ -1,23 +1,40 @@
-import {
-  SET_PLANETS,
-  SET_PLANETS_IF_EMPTY,
-  UNSET_PLANETS,
-} from 'redux/actions/planets-actions';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getAll as getAllPlanets } from 'services/planets.service';
 
-export const initialState = [];
+export const setPlanetsIfEmpty = createAsyncThunk(
+  'planets/setPlanetsIfEmpty',
+  async (payload, { getState }) => {
+    const { data } = await getAllPlanets();
+    return data;
+  },
+  {
+    condition(payload, { getState }) {
+      const { planets } = getState();
+      return !planets?.length;
+    },
+  },
+);
 
-export const planetsReducer = (state = initialState, action) => {
-  if (action.type === SET_PLANETS) {
-    return action.payload;
-  }
+const initialState = [];
 
-  if (action.type === UNSET_PLANETS) {
-    return initialState;
-  }
+const planetsSlice = createSlice({
+  name: 'planets',
+  initialState,
+  reducers: {
+    setPlanets(state, action) {
+      return action.payload;
+    },
+    unsetPlanets(state, action) {
+      return initialState;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(setPlanetsIfEmpty.fulfilled, (state, action) => {
+      return action.payload;
+    });
+  },
+});
 
-  if (action.type === SET_PLANETS_IF_EMPTY) {
-    return action.payload;
-  }
+export const { setPlanets, unsetPlanets } = planetsSlice.actions;
 
-  return state;
-};
+export default planetsSlice.reducer;

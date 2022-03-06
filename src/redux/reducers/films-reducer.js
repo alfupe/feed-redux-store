@@ -1,23 +1,45 @@
-import {
-  SET_FILMS,
-  SET_FILMS_IF_EMPTY,
-  UNSET_FILMS,
-} from 'redux/actions/films-actions';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getAll as getAllFilms } from 'services/films.service';
 
-export const initialState = [];
+export const setFilmsIfEmpty = createAsyncThunk(
+  'films/setFilmsIfEmpty',
+  async (payload, { getState }) => {
+    const { data } = await getAllFilms();
+    return data;
+  },
+  {
+    condition(payload, { getState }) {
+      const { films } = getState();
+      return !films?.length;
+    },
+  },
+);
 
-export const filmsReducer = (state = initialState, action) => {
-  if (action.type === SET_FILMS) {
-    return action.payload;
-  }
+const initialState = [];
 
-  if (action.type === UNSET_FILMS) {
-    return initialState;
-  }
+const filmsSlice = createSlice({
+  name: 'films',
+  initialState,
+  reducers: {
+    setFilms(state, action) {
+      return action.payload;
+    },
+    unsetFilms(state, action) {
+      return initialState;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      /*.addCase(setFilmsIfEmpty.pending, (state, action) => {
+        //state.status = 'loading'
+        console.log('setFilmsIfEmpty pending');
+      })*/
+      .addCase(setFilmsIfEmpty.fulfilled, (state, action) => {
+        return action.payload;
+      });
+  },
+});
 
-  if (action.type === SET_FILMS_IF_EMPTY) {
-    return action.payload;
-  }
+export const { setFilms, unsetFilms } = filmsSlice.actions;
 
-  return state;
-};
+export default filmsSlice.reducer;

@@ -1,23 +1,40 @@
-import {
-  SET_STARSHIPS,
-  UNSET_STARSHIPS,
-  SET_STARSHIPS_IF_EMPTY,
-} from 'redux/actions/starships-actions';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getAll as getAllStarships } from 'services/starships.service';
 
-export const initialState = [];
+export const setStarshipsIfEmpty = createAsyncThunk(
+  'starships/setStarshipsIfEmpty',
+  async (payload, { getState }) => {
+    const { data } = await getAllStarships();
+    return data;
+  },
+  {
+    condition(payload, { getState }) {
+      const { starships } = getState();
+      return !starships?.length;
+    },
+  },
+);
 
-export const starshipsReducer = (state = initialState, action) => {
-  if (action.type === SET_STARSHIPS) {
-    return action.payload;
-  }
+const initialState = [];
 
-  if (action.type === UNSET_STARSHIPS) {
-    return initialState;
-  }
+const starshipsSlice = createSlice({
+  name: 'starships',
+  initialState,
+  reducers: {
+    setStarships(state, action) {
+      return action.payload;
+    },
+    unsetStarships(state, action) {
+      return initialState;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(setStarshipsIfEmpty.fulfilled, (state, action) => {
+      return action.payload;
+    });
+  },
+});
 
-  if (action.type === SET_STARSHIPS_IF_EMPTY) {
-    return action.payload;
-  }
+export const { setStarships, unsetStarships } = starshipsSlice.actions;
 
-  return state;
-};
+export default starshipsSlice.reducer;

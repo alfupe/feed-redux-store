@@ -2,11 +2,8 @@ import { NavLink } from 'react-router-dom';
 import LogoutAction from 'components/LogoutAction/LogoutAction';
 import './PageContainer.css';
 import { useCallback } from 'react';
-import { useFilms } from 'hooks/use-films';
 
 export default function PageContainer({ children, title }) {
-  const { unsetFilms } = useFilms();
-
   const navItemClassName = useCallback(({ isActive }) => {
     return `page-container__nav-item ${
       isActive ? 'page-container__nav-item--is-active' : ''
@@ -26,14 +23,6 @@ export default function PageContainer({ children, title }) {
           </NavLink>
           <LogoutAction />
         </nav>
-        <hr />
-        <button
-          onClick={() => {
-            console.log('pacooooo', unsetFilms());
-          }}
-        >
-          unsetFilms
-        </button>
         <hr />
       </header>
       <section>{children}</section>

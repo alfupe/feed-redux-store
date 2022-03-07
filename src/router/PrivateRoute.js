@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { isLoggedIn } from 'services/auth.service';
-import { FeedStoreProvider } from 'context/FeedStoreProvider';
+import { useFeedStore } from 'hooks/use-feed-store';
 
 export default function PrivateRoute({ component: Component, ...rest }) {
   const [loading, setLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
+  const isFeedingStore = useFeedStore();
 
   useEffect(() => {
     (async () => {
@@ -21,12 +22,10 @@ export default function PrivateRoute({ component: Component, ...rest }) {
     })();
   }, []);
 
-  return loading ? (
+  return loading || isFeedingStore ? (
     <div style={{ height: '100vh' }}>loading…</div>
   ) : isLogged ? (
-    <FeedStoreProvider>
-      <Component {...rest} />
-    </FeedStoreProvider>
+    <Component {...rest} />
   ) : (
     <Navigate to="/login" replace state={{ from: rest.location }} />
   );

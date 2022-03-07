@@ -1,19 +1,20 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFeedStore } from 'hooks/use-feed-store';
+import { useDispatch } from 'react-redux';
+import { emptyStore } from 'redux/actions/feed-store-actions';
 
 export default function LogoutAction() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { emptyStore } = useFeedStore();
 
   const handleLogout = useCallback(
     (event) => {
       event.preventDefault();
       localStorage.removeItem('isLoggedIn');
-      emptyStore();
+      dispatch(emptyStore());
       navigate('/login');
     },
-    [navigate, emptyStore],
+    [navigate, dispatch],
   );
 
   return (

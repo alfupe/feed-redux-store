@@ -4,8 +4,12 @@ import { getAll as getAllPlanets } from 'services/planets.service';
 export const setPlanetsIfEmpty = createAsyncThunk(
   'planets/setPlanetsIfEmpty',
   async (payload, { getState }) => {
-    const { data } = await getAllPlanets();
-    return data;
+    try {
+      const { data } = await getAllPlanets();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   },
   {
     condition(payload, { getState }) {

@@ -4,8 +4,12 @@ import { getAll as getAllVehicles } from 'services/vehicles.service';
 export const setVehiclesIfEmpty = createAsyncThunk(
   'vehicles/setVehiclesIfEmpty',
   async (payload, { getState }) => {
-    const { data } = await getAllVehicles();
-    return data;
+    try {
+      const { data } = await getAllVehicles();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   },
   {
     condition(payload, { getState }) {

@@ -4,8 +4,12 @@ import { getAll as getAllStarships } from 'services/starships.service';
 export const setStarshipsIfEmpty = createAsyncThunk(
   'starships/setStarshipsIfEmpty',
   async (payload, { getState }) => {
-    const { data } = await getAllStarships();
-    return data;
+    try {
+      const { data } = await getAllStarships();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   },
   {
     condition(payload, { getState }) {

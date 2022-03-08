@@ -4,8 +4,12 @@ import { getAll as getAllSpecies } from 'services/species.service';
 export const setSpeciesIfEmpty = createAsyncThunk(
   'species/setSpeciesIfEmpty',
   async (payload, { getState }) => {
-    const { data } = await getAllSpecies();
-    return data;
+    try {
+      const { data } = await getAllSpecies();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   },
   {
     condition(payload, { getState }) {

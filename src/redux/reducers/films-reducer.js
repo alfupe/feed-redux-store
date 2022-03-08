@@ -4,8 +4,12 @@ import { getAll as getAllFilms } from 'services/films.service';
 export const setFilmsIfEmpty = createAsyncThunk(
   'films/setFilmsIfEmpty',
   async (payload, { getState }) => {
-    const { data } = await getAllFilms();
-    return data;
+    try {
+      const { data } = await getAllFilms();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   },
   {
     condition(payload, { getState }) {

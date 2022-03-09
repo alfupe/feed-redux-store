@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAll as getAllVehicles } from 'services/vehicles.service';
+import { STATUSES } from 'redux/statuses';
 
 export const setVehiclesIfEmpty = createAsyncThunk(
   'vehicles/setVehiclesIfEmpty',
@@ -14,27 +15,39 @@ export const setVehiclesIfEmpty = createAsyncThunk(
   {
     condition(payload, { getState }) {
       const { vehicles } = getState();
-      return !vehicles?.length;
+      return vehicles.status === STATUSES.EMPTY;
     },
   },
 );
 
-const initialState = [];
+const initialState = {
+  status: STATUSES.EMPTY,
+  items: [],
+};
 
 const vehiclesSlice = createSlice({
   name: 'vehicles',
   initialState,
   reducers: {
     setVehicles(state, action) {
-      return action.payload;
+      return {
+        status: STATUSES.FULFILLED,
+        items: action.payload,
+      };
     },
     unsetVehicles(state, action) {
       return initialState;
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(setVehiclesIfEmpty.pending, (state, action) => {
+      state.status = STATUSES.PENDING;
+    });
     builder.addCase(setVehiclesIfEmpty.fulfilled, (state, action) => {
-      return action.payload;
+      return {
+        status: STATUSES.FULFILLED,
+        items: action.payload,
+      };
     });
   },
 });

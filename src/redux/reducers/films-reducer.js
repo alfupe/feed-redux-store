@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAll as getAllFilms } from 'services/films.service';
+import { STATUSES } from 'redux/statuses';
 
 export const setFilmsIfEmpty = createAsyncThunk(
   'films/setFilmsIfEmpty',
@@ -14,19 +15,25 @@ export const setFilmsIfEmpty = createAsyncThunk(
   {
     condition(payload, { getState }) {
       const { films } = getState();
-      return !films?.length;
+      return films.status === STATUSES.EMPTY;
     },
   },
 );
 
-const initialState = [];
+const initialState = {
+  status: STATUSES.EMPTY,
+  items: [],
+};
 
 const filmsSlice = createSlice({
   name: 'films',
   initialState,
   reducers: {
     setFilms(state, action) {
-      return action.payload;
+      return {
+        status: STATUSES.FULFILLED,
+        items: action.payload,
+      };
     },
     unsetFilms(state, action) {
       return initialState;
@@ -34,12 +41,14 @@ const filmsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      /*.addCase(setFilmsIfEmpty.pending, (state, action) => {
-        //state.status = 'loading'
-        console.log('setFilmsIfEmpty pending');
-      })*/
+      .addCase(setFilmsIfEmpty.pending, (state, action) => {
+        state.status = STATUSES.PENDING;
+      })
       .addCase(setFilmsIfEmpty.fulfilled, (state, action) => {
-        return action.payload;
+        return {
+          status: STATUSES.FULFILLED,
+          items: action.payload,
+        };
       });
   },
 });

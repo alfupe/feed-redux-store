@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAll as getAllPlanets } from 'services/planets.service';
+import { STATUSES } from 'redux/statuses';
 
 export const setPlanetsIfEmpty = createAsyncThunk(
   'planets/setPlanetsIfEmpty',
@@ -14,27 +15,39 @@ export const setPlanetsIfEmpty = createAsyncThunk(
   {
     condition(payload, { getState }) {
       const { planets } = getState();
-      return !planets?.length;
+      return planets.status === STATUSES.EMPTY;
     },
   },
 );
 
-const initialState = [];
+const initialState = {
+  status: STATUSES.EMPTY,
+  items: [],
+};
 
 const planetsSlice = createSlice({
   name: 'planets',
   initialState,
   reducers: {
     setPlanets(state, action) {
-      return action.payload;
+      return {
+        status: STATUSES.FULFILLED,
+        items: action.payload,
+      };
     },
     unsetPlanets(state, action) {
       return initialState;
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(setPlanetsIfEmpty.pending, (state, action) => {
+      state.status = STATUSES.PENDING;
+    });
     builder.addCase(setPlanetsIfEmpty.fulfilled, (state, action) => {
-      return action.payload;
+      return {
+        status: STATUSES.FULFILLED,
+        items: action.payload,
+      };
     });
   },
 });

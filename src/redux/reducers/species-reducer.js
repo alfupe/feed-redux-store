@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAll as getAllSpecies } from 'services/species.service';
+import { STATUSES } from 'redux/statuses';
 
 export const setSpeciesIfEmpty = createAsyncThunk(
   'species/setSpeciesIfEmpty',
@@ -14,27 +15,39 @@ export const setSpeciesIfEmpty = createAsyncThunk(
   {
     condition(payload, { getState }) {
       const { species } = getState();
-      return !species?.length;
+      return species.status === STATUSES.EMPTY;
     },
   },
 );
 
-const initialState = [];
+const initialState = {
+  status: STATUSES.EMPTY,
+  items: [],
+};
 
 const speciesSlice = createSlice({
   name: 'species',
   initialState,
   reducers: {
     setSpecies(state, action) {
-      return action.payload;
+      return {
+        status: STATUSES.FULFILLED,
+        items: action.payload,
+      };
     },
     unsetSpecies(state, action) {
       return initialState;
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(setSpeciesIfEmpty.pending, (state, action) => {
+      state.status = STATUSES.PENDING;
+    });
     builder.addCase(setSpeciesIfEmpty.fulfilled, (state, action) => {
-      return action.payload;
+      return {
+        status: STATUSES.FULFILLED,
+        items: action.payload,
+      };
     });
   },
 });

@@ -20,10 +20,10 @@ export function useFeedStore() {
   }, [dispatch]);
 
   return (
-    !films?.length ||
-    !planets?.length ||
-    !species?.length ||
-    !starships?.length ||
-    !vehicles?.length
+    !films?.items?.length ||
+    !planets?.items?.length ||
+    !species?.items?.length ||
+    !starships?.items?.length ||
+    !vehicles?.items?.length
   );
 }

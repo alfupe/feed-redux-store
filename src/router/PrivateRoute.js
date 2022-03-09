@@ -6,7 +6,7 @@ import { useFeedStore } from 'hooks/use-feed-store';
 export default function PrivateRoute({ component: Component, ...rest }) {
   const [loading, setLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
-  const isFeedingStore = useFeedStore();
+  useFeedStore();
 
   useEffect(() => {
     (async () => {
@@ -22,7 +22,7 @@ export default function PrivateRoute({ component: Component, ...rest }) {
     })();
   }, []);
 
-  return loading || isFeedingStore ? (
+  return loading ? (
     <div style={{ height: '100vh' }}>loading…</div>
   ) : isLogged ? (
     <Component {...rest} />

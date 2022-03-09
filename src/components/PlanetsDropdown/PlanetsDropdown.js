@@ -16,7 +16,7 @@ export default function PlanetsDropdown({ currentValue, onChange = () => {} }) {
 
   return (
     <Dropdown
-      loading={planets.status !== STATUSES.FULFILLED}
+      loading={planets.status === STATUSES.PENDING}
       disabled={planets.status !== STATUSES.FULFILLED}
       placeholder="Select planet"
       clearable

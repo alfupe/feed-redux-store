@@ -19,7 +19,7 @@ export default function VehiclesDropdown({
 
   return (
     <Dropdown
-      loading={vehicles.status !== STATUSES.FULFILLED}
+      loading={vehicles.status === STATUSES.PENDING}
       disabled={vehicles.status !== STATUSES.FULFILLED}
       placeholder="Select vehicles"
       clearable

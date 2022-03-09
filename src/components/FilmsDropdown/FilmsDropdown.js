@@ -16,7 +16,7 @@ export default function FilmsDropdown({ currentValue, onChange = () => {} }) {
 
   return (
     <Dropdown
-      loading={films.status !== STATUSES.FULFILLED}
+      loading={films.status === STATUSES.PENDING}
       disabled={films.status !== STATUSES.FULFILLED}
       placeholder="Select film"
       clearable

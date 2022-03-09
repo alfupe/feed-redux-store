@@ -19,7 +19,7 @@ export default function StarshipsDropdown({
 
   return (
     <Dropdown
-      loading={starships.status !== STATUSES.FULFILLED}
+      loading={starships.status === STATUSES.PENDING}
       disabled={starships.status !== STATUSES.FULFILLED}
       placeholder="Select starship"
       clearable

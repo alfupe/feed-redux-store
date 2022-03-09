@@ -16,7 +16,7 @@ export default function SpeciesDropdown({ currentValue, onChange = () => {} }) {
 
   return (
     <Dropdown
-      loading={species.status !== STATUSES.FULFILLED}
+      loading={species.status === STATUSES.PENDING}
       disabled={species.status !== STATUSES.FULFILLED}
       placeholder="Select species"
       clearable

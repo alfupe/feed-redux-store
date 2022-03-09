@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { emptyStore, feedStore } from 'redux/actions/feed-store-actions';
 import { delay } from 'modules/delay/delay';
 import { useFilms } from 'hooks/use-films';
+import { Button, Container, Segment } from 'semantic-ui-react';
 
 export default function PageContainer({ children, title }) {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export default function PageContainer({ children, title }) {
   }, []);
 
   return (
-    <article className="page-container">
+    <Container as="article" className="page-container">
       <header>
         <h1>{title}</h1>
         <nav className="page-container__nav-menu">
@@ -30,50 +31,50 @@ export default function PageContainer({ children, title }) {
           </NavLink>
           <LogoutAction />
         </nav>
-        <hr />
-        Store actions:&nbsp;
-        <button
-          onClick={() => {
-            dispatch(feedStore());
-          }}
-        >
-          Feed
-        </button>
-        <button
-          onClick={() => {
-            dispatch(emptyStore());
-          }}
-        >
-          Empty
-        </button>
-        <button
-          onClick={async () => {
-            dispatch(emptyStore());
-            await delay(1000);
-            dispatch(feedStore());
-          }}
-        >
-          Refill
-        </button>
-        <button
-          onClick={async () => {
-            unsetFilms();
-            await delay(1000);
-            setFilmsIfEmpty();
-          }}
-        >
-          Unset films
-        </button>
-        <button
-          onClick={() => {
-            setFilmsIfEmpty();
-          }}
-        >
-          Set films
-        </button>
-        <hr />
+        <Segment>
+          Store actions:&nbsp;
+          <Button
+            onClick={() => {
+              dispatch(feedStore());
+            }}
+          >
+            Feed
+          </Button>
+          <Button
+            onClick={() => {
+              dispatch(emptyStore());
+            }}
+          >
+            Empty
+          </Button>
+          <Button
+            onClick={async () => {
+              dispatch(emptyStore());
+              await delay(1000);
+              dispatch(feedStore());
+            }}
+          >
+            Refill
+          </Button>
+          <Button
+            onClick={async () => {
+              unsetFilms();
+              await delay(1000);
+              setFilmsIfEmpty();
+            }}
+          >
+            Unset films
+          </Button>
+          <Button
+            onClick={() => {
+              setFilmsIfEmpty();
+            }}
+          >
+            Set films
+          </Button>
+        </Segment>
       </header>
       <section>{children}</section>
-    </article>
+    </Container>
   );
 }

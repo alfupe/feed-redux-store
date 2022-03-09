@@ -14,13 +14,16 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.1.2",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "start:mocked": "REACT_APP_MOCKED_ENV=true npm start",
+    "start": "semantic-ui-css-patch && react-scripts start",
+    "start:mocked": "semantic-ui-css-patch && REACT_APP_MOCKED_ENV=true npm start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "postinstall": "semantic-ui-css-patch"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@semantic-ui-react/css-patch": "^1.0.0",
     "msw": "^0.38.2",
     "prettier": "^2.5.1"
   },

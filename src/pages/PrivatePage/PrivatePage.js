@@ -1,26 +1,10 @@
-import { useFilms } from 'hooks/use-films';
-import { usePlanets } from 'hooks/use-planets';
-import { useSpecies } from 'hooks/use-species';
-import { useStarships } from 'hooks/use-starships';
-import { useVehicles } from 'hooks/use-vehicles';
 import PageContainer from 'components/PageContainer/PageContainer';
+import FiltersBar from 'components/FiltersBar/FiltersBar';
 
 export default function PrivatePage() {
-  const { films } = useFilms();
-  const { planets } = usePlanets();
-  const { species } = useSpecies();
-  const { starships } = useStarships();
-  const { vehicles } = useVehicles();
-
   return (
     <PageContainer title="Private page 1">
-      <pre>
-        {JSON.stringify(
-          { films, planets, species, starships, vehicles },
-          null,
-          2,
-        )}
-      </pre>
+      <FiltersBar />
     </PageContainer>
   );
 }

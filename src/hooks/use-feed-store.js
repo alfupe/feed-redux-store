@@ -16,7 +16,9 @@ export function useFeedStore() {
   const { vehicles } = useVehicles();
 
   useEffect(() => {
-    dispatch(feedStore());
+    setTimeout(() => {
+      dispatch(feedStore());
+    }, 100);
   }, [dispatch]);
 
   return (
